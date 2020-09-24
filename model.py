@@ -77,7 +77,7 @@ classifier_pipeline = None
 
 def init():
     global classifier_pipeline
-    database_path = "/Users/monetanais/Documents/Cours/3A/chatbot/data/"
+    database_path = "/Users/louismorel/Documents/cours/chatbot/chatbot/data/"
 
     df = pd.DataFrame()
     for filename in os.listdir(database_path):
@@ -161,12 +161,12 @@ def init():
     # Test sur des données issues du jeu de test (uniquement les premières lignes)
     #predicted = classifier_pipeline.predict(X_test.head(20))
     #all_predictions = classifier_pipeline.predict(X_test)
-    return 0
+    return classifier_pipeline
 
 
 
 
-def prediction_msg(msg, classifier = classifier_pipeline) :
+def prediction_msg(msg, classifier) :
     temp = pd.DataFrame({'message' : [msg] })
     pred = classifier.predict(temp)
     return pred
