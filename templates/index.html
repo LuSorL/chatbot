@@ -11,8 +11,10 @@
       <div class="title">PrinterBot</div>
     </div>
     <ul class="messages scrollbar-custom theme1">
-      {% if message != None %}
-      {{message}}
+      {% if message|length != 1 %}
+      {% for elem in message[1:] : %}
+      <li class="user_msg"> {{elem}} </li>
+      {% endfor %}
       {% else %}
       {% endif %}
     </ul>
