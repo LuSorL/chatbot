@@ -14,6 +14,7 @@
       {% if message|length != 1 %}
       {% for elem in message[1:] : %}
       <li class="user_msg"> {{elem}} </li>
+      <li class="resp_msg"> {{reponse[0]}}</li>
       {% endfor %}
       {% else %}
       {% endif %}

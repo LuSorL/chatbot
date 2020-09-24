@@ -57,6 +57,21 @@ body {
   vertical-align: middle;
 }
 
+.resp_msg {
+  width: auto + 2px;
+  height: auto + 2px;
+  display: table;
+  border-radius: 4px;
+  background-color: blue;
+  border: 2px solid blue;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  text-align: center;
+  float: left;
+  vertical-align: middle;
+}
+
 .messages {
   position: relative;
   list-style: none;
