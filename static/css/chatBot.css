@@ -32,33 +32,6 @@ body {
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-.top_menu .buttons {
-  margin: 3px 0 0 20px;
-  position: absolute;
-  vertical-align: middle;
-}
-
-.top_menu .buttons .button {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 10px;
-  position: relative;
-}
-
-.top_menu .buttons .button.close {
-  background-color: #f5886e;
-}
-
-.top_menu .buttons .button.minimize {
-  background-color: #fdbf68;
-}
-
-.top_menu .buttons .button.maximize {
-  background-color: #a3d063;
-}
-
 .top_menu .title {
   margin-left: 30%;
   text-align: center;
@@ -360,7 +333,7 @@ body {
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
 }
 
-.bottom_wrapper .message_input_wrapper {
+.bottom_wrapper .form .message_input_wrapper {
   display: inline-block;
   height: 85%;
   border-radius: 25px;
@@ -371,12 +344,16 @@ body {
   background-color: white;
 }
 
-.message_input::placeholder {
+.form .message_input::placeholder {
   color: #b3b3b3;
   font-weight: 300;
 }
 
-.bottom_wrapper .message_input_wrapper .message_input {
+.form {
+  height: 100%;
+}
+
+.bottom_wrapper .form .message_input_wrapper .message_input {
   border: none;
   height: 100%;
   box-sizing: border-box;
@@ -387,7 +364,26 @@ body {
   font-size: 16px;
 }
 
-.bottom_wrapper .send_message {
+.send_message button {
+  width: 100%;
+  height: 100%;
+  display: table;
+  border-radius: 20px;
+  background-color: #a3d063;
+  border: 2px solid #a3d063;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  text-align: center;
+  float: right;
+  vertical-align: middle;
+}
+
+.send_message button:hover {
+  color: #a3d063;
+  background-color: #fff;
+}
+.bottom_wrapper .form .send_message {
   width: 9%;
   height: 85%;
   display: table;
@@ -402,19 +398,20 @@ body {
   vertical-align: middle;
 }
 
-.bottom_wrapper .send_message:hover {
+/*
+.bottom_wrapper .form .send_message:hover {
   color: #a3d063;
   background-color: #fff;
 }
 
-.bottom_wrapper .send_message .text {
+.bottom_wrapper .form .send_message .text {
   font-size: 100%;
   font-weight: 300;
   display: table-cell;
-  /* line-height: 48px; */
+  /* line-height: 48px;
   vertical-align: middle;
 }
-
+*/
 .message_template,
 .feedback_template {
   display: none;
@@ -611,27 +608,6 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .checkmark {
   width:16px;
   height:16px;
@@ -666,6 +642,12 @@ body {
   stroke: #e6584e;
 
 }
+
+
+
+
+
+
 
 .check {
   stroke-width: 4;

@@ -11,10 +11,13 @@
       <div class="title">PrinterBot</div>
     </div>
     <ul class="messages scrollbar-custom theme1">
+      {% if message != None %}
       {{message}}
+      {% else %}
+      {% endif %}
     </ul>
     <div class="bottom_wrapper clearfix">
-      <form method="post">
+      <form class="form" method="post">
         <div class="message_input_wrapper">
           <input class="message_input" name="message_input" placeholder="Type your message here..." />
         </div>
@@ -24,6 +27,7 @@
         </div>
       </form>
     </div>
+
   </div>
   <div class="message_template">
     <li class="message">
