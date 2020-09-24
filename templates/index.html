@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>BIRD ChatBot</title>
+  <title>PrinterBot</title>
   <link rel="stylesheet"  type="text/css"  href="{{ url_for('static',filename='css/chatBot.css') }}" />
 </head>
 <body>
@@ -11,10 +11,11 @@
       <div class="title">PrinterBot</div>
     </div>
     <ul class="messages scrollbar-custom theme1">
+      <li class="resp_msg"> Bonjour je suis PrinterBot, que puis-je faire pour vous ? </li>
       {% if message|length != 1 %}
-      {% for elem in message[1:] : %}
-      <li class="user_msg"> {{elem}} </li>
-      <li class="resp_msg"> {{reponse[0]}}</li>
+      {% for i in range(1, message|length)  : %}
+      <li class="user_msg"> {{message[i]}} </li>
+      <li class="resp_msg"> {{reponse[i]}}</li>
       {% endfor %}
       {% else %}
       {% endif %}

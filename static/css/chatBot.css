@@ -43,33 +43,29 @@ body {
 }
 
 .user_msg {
-  width: auto + 2px;
-  height: auto + 2px;
-  display: table;
+  margin-bottom: 20px;
+  width: 100%;
+  height: auto + 3px;
+  display: block;
   border-radius: 4px;
   background-color: #a3d063;
   border: 2px solid #a3d063;
   color: #fff;
-  cursor: pointer;
   transition: all 0.2s linear;
-  text-align: center;
-  float: right;
-  vertical-align: middle;
+  text-align: right;
 }
 
 .resp_msg {
-  width: auto + 2px;
-  height: auto + 2px;
-  display: table;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: auto + 3px;
+  display: block;
   border-radius: 4px;
   background-color: blue;
   border: 2px solid blue;
   color: #fff;
-  cursor: pointer;
   transition: all 0.2s linear;
-  text-align: center;
-  float: left;
-  vertical-align: middle;
 }
 
 .messages {
