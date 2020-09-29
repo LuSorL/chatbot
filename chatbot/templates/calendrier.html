@@ -5,6 +5,15 @@
 <body>
     <form action='/chatbot' method="GET">
         <button class='chatbot'>Chatbot</button>
-    </form>
 
+        <div class='json'>
+          {% for elem in json : %}
+          {% for k,v in elem.items() : %}
+          {{k}}
+          {{v}}
+          <br>
+          {% endfor %}
+          {% endfor %}
+        </div>
+    </form>
 </body>

@@ -12,10 +12,11 @@ import fnmatch
 
 main = Blueprint('main', __name__)
 
-signed_in = False 
+signed_in = False
 
 messages = []
 reponses = []
+json_file = []
 
 cwd = os.getcwd() + '/chatbot/'
 filename = 'model.pkl'
@@ -28,21 +29,15 @@ def prediction_msg(msg, classifier = classifier) :
     return pred
 
 
-# This function enables us to know if the user is logged in or not
-def mode():
-    global signed_in
-    if signed_in : signed_in = False
-    else : signed_in = True
 
 @main.route('/')
 @main.route('/login')
 def login():
-    mode()
-    return render_template('login.html', signed_in = signed_in)
+    return render_template('login.html')
 
 @main.route('/signup')
 def signin():
-    return render_template('signup.html', signed_in = signed_in)
+    return render_template('signup.html')
 
 @main.route('/chatbot')
 def chat():
@@ -54,7 +49,7 @@ def chat_back():
 
 @main.route('/chatbot', methods=["POST"])
 def chat_msg():
-    global messages, reponses
+    global messages, reponses, json_file
     message = request.form.get("message_input")
     date = datetime.now()
     msg_day = date.isoweekday()
@@ -77,7 +72,11 @@ def chat_msg():
         #récupération du nom du document
         list_doc = message.split("doc", 1)
         list_doc_bis = list_doc[1].split()
-        nom_doc = "doc"+list_doc_bis[0]
+        print(list_doc_bis)
+        if list_doc_bis[0] == 'ument' :
+            nom_doc = list_doc_bis[1]
+        else :
+            nom_doc = 'doc' + list_doc_bis[0]
 
         #ouverture JSON
         cwd = os.getcwd() + '/chatbot/static/'
@@ -91,7 +90,7 @@ def chat_msg():
         if found == 0 :
             with open(cwd + "calendrier.json","w") as f :
                     json.dump([],f)
-        
+
         file = open(cwd + "calendrier.json", "r")
         json_file = json.load(file)
         file.close()
@@ -139,13 +138,14 @@ def chat_msg():
         file.close()
 
         #envoie message de réponse
-        reponses.append("Je lance l'impresion du document doc" + nom_doc + " de " + nb_pages + "pages")
+        reponses.append("Je lance l'impresion du document " + nom_doc + " de " + nb_pages + "pages")
     return render_template('index.html', message = messages, reponse = reponses)
 
 
 @main.route('/calendrier', methods=['POST','GET'])
 def calendrier():
-    return render_template('calendrier.html')
+    print("json ", json_file)
+    return render_template('calendrier.html', json = json_file)
 
 if __name__ == "__main__":
     main.run(debug = True)
