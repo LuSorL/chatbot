@@ -1,0 +1,66 @@
+html {
+  width: 100%;
+}
+
+body {
+  width: 100%;
+}
+
+.planning {
+  display: grid;
+  /*overflow-x: scroll;*/
+  grid-auto-rows: auto;
+  grid-template-columns: 15% 85%;
+  grid-template-rows: 10% 90%;
+  width: 100%;
+}
+
+.vide {
+  background-color: #a3d063;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+}
+
+.top {
+  grid-column: 2 / auto;
+  grid-row: 1;
+  background-color: #a3d063;
+  border: 2px solid black;
+  width: auto;
+}
+
+.left {
+  grid-column: 1;
+  grid-row: 2 / 13;
+  background-color: #a3d063;
+  border: 2px solid black;
+}
+
+.top ul.jours {
+  display: inline;
+  white-space: nowrap;
+  width: auto;
+}
+
+ul.jours li {
+  display: inline;
+  padding-right: 10%;
+}
+
+.horaires {
+  display: flow;
+  height: 100%;
+}
+
+.horaires li {
+  display: block;
+  padding-bottom: 30%;
+}
+
+.contenu {
+  grid-column: 2 / auto;
+  grid-row: 2 / 13;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  display: grid;
+}
