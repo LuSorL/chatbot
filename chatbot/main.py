@@ -129,6 +129,7 @@ def chat_msg():
         object['utilisateur'] = "toto" #a modifier
         object['start'] = start
         object['end'] = end.strftime("%m/%d/%Y %H:%M:%S")
+        object['jour'] = datetime.strptime(start, "%m/%d/%Y %H:%M:%S").isoweekday()
 
         json_file.append(object)
 
@@ -145,7 +146,8 @@ def chat_msg():
 @main.route('/calendrier', methods=['POST','GET'])
 def calendrier():
     print("json ", json_file)
-    return render_template('calendrier.html', json = json_file)
+    week = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi']
+    return render_template('calendrier.html', json = json_file, week = week)
 
 if __name__ == "__main__":
     main.run(debug = True)

@@ -5,15 +5,26 @@
 <body>
     <form action='/chatbot' method="GET">
         <button class='chatbot'>Chatbot</button>
-
         <div class='json'>
-          {% for elem in json : %}
-          {% for k,v in elem.items() : %}
-          {{k}}
-          {{v}}
-          <br>
+          {% for day in week : %}
+          <ul class={{elem}}>
+            {{day}}
+            {% set counter = loop.index %}
+            {% for elem in json : %}
+            {% if elem['jour'] == counter %}
+            {% for k,v in elem.items() : %}
+            <li class="doc">
+              {{k}}
+              {{v}}
+            </li>
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+          </ul>
           {% endfor %}
-          {% endfor %}
+
+
         </div>
     </form>
+
 </body>
