@@ -21,7 +21,7 @@
       </div>
     </div>
     <ul class="messages scrollbar-custom theme1">
-      <li class="resp_msg"> Bonjour je suis PrinterBot, que puis-je faire pour vous ? </li>
+      <li class="resp_msg"> Bonjour {{pseudo}} je suis PrinterBot, que puis-je faire pour vous ? </li>
       {% if message[0] != "" %}
       {% for i in range(message|length)  : %}
       <li class="user_msg"> {{message[i]}} </li>

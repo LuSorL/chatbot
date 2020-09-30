@@ -1,11 +1,11 @@
 * {
   box-sizing: border-box;
-  font-family: "Open Sans";
+  font-family: Ubuntu-Regular;
 }
 
 body {
   background-color: #e8e8ec;
-  font-family: "Calibri", "Roboto", sans-serif;
+  font-family: Ubuntu-Regular;
 }
 
 .chat_window {
@@ -51,9 +51,9 @@ body {
   height: auto + 3px;
   display: block;
   border-radius: 4px;
-  background-color: #a3d063;
-  border: 2px solid #a3d063;
-  color: #fff;
+  background-color: #3A99EA;
+  border: 2px solid #3A99EA;
+  color: white;
   transition: all 0.2s linear;
   text-align: right;
 }
@@ -65,9 +65,9 @@ body {
   height: auto + 3px;
   display: block;
   border-radius: 4px;
-  background-color: blue;
-  border: 2px solid blue;
-  color: #fff;
+  background-color: #D4E8F9;
+  border: 2px solid #D4E8F9;
+  color: black;
   transition: all 0.2s linear;
 }
 
@@ -398,8 +398,8 @@ body {
   height: 100%;
   display: table;
   border-radius: 20px;
-  background-color: #a3d063;
-  border: 2px solid #a3d063;
+  background-color: #349260;
+  border: 2px solid #349260;
   color: #fff;
   cursor: pointer;
   transition: all 0.2s linear;
@@ -409,7 +409,7 @@ body {
 }
 
 .send_message button:hover {
-  color: #a3d063;
+  color: #349260;
   background-color: #fff;
 }
 .bottom_wrapper .form .send_message {
@@ -417,8 +417,8 @@ body {
   height: 85%;
   display: table;
   border-radius: 20px;
-  background-color: #a3d063;
-  border: 2px solid #a3d063;
+  background-color: #349260;
+  border: 2px solid #349260;
   color: #fff;
   cursor: pointer;
   transition: all 0.2s linear;

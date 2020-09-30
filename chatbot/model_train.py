@@ -57,37 +57,20 @@ def train():
     nltk_stopwords = stopwords.words('french')+list(string.punctuation)
 
     # Objet TfidfVectorizer
-    msg_vectorizer = TfidfVectorizer(tokenizer=split_into_lemmas_spacy,
-                                    lowercase=True,
-                                    stop_words=nltk_stopwords,
-                                    min_df=0.001)
+    msg_vectorizer = TfidfVectorizer(tokenizer=split_into_lemmas_spacy,lowercase=True,stop_words=nltk_stopwords,min_df=0.001)
 
     # Pipeline spécifique
     msg_pipeline = make_pipeline(SingleColumnSelector(key="message"), msg_vectorizer)
 
-    # Exemple d'application de la pipeline
     msg_pipeline.fit(X_train)
-    res = msg_pipeline.transform(X_test.head())
-
-    # Affichage des traits extraits par la pipeline
-    feat_names = msg_vectorizer.get_feature_names()
-
+    
     stats_vectorizer = DictVectorizer()
 
     # Pipeline spécifique
-    stats_pipeline = make_pipeline(
-        SingleColumnSelector(key="message"),
-        TextStats(),
-        stats_vectorizer
-    )
+    stats_pipeline = make_pipeline(SingleColumnSelector(key="message"),TextStats(),stats_vectorizer)
 
-    # Exemple d'application de la pipeline
     stats_pipeline.fit(X_train)
-    res = stats_pipeline.transform(X_test.head())
-
-    # Affichage des traits extraits par la pipeline
-    feat_names = stats_vectorizer.get_feature_names()
-
+    
     # Union des traits
     union = FeatureUnion(transformer_list = [
             ("msg_feature", msg_pipeline),
@@ -95,22 +78,11 @@ def train():
         ])
 
     # Chaîne de prétraitement globale, composée de l'union des chaînes
-    preprocess_pipeline = make_pipeline(
-        union
-    )
+    preprocess_pipeline = make_pipeline(union)
 
-    # Application de la chaîne à X_train
     preprocess_pipeline.fit(X_train)
-    X_transformed = preprocess_pipeline.transform(X_train)
-
-    #Affichage du nombre de traits générés par chacune des chaines
-    fnames_msg = msg_pipeline.named_steps['tfidfvectorizer'].get_feature_names()
-    fnames_stat = stats_pipeline.named_steps['dictvectorizer'].get_feature_names()
-
-    classifier_pipeline = make_pipeline(
-        preprocess_pipeline,
-        RandomForestClassifier()
-    )
+    
+    classifier_pipeline = make_pipeline(preprocess_pipeline,RandomForestClassifier())
     # Apprentissage avec les données d'entraînement
     classifier_pipeline.fit(X_train, y_train)
 

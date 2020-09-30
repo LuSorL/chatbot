@@ -9,6 +9,7 @@ from time import strftime
 from datetime import datetime
 from datetime import timedelta
 import fnmatch
+from flask_login import login_required, current_user
 
 main = Blueprint('main', __name__)
 
@@ -17,6 +18,7 @@ signed_in = False
 messages = []
 reponses = []
 json_file = []
+pseudo = ""
 
 cwd = os.getcwd() + '/chatbot/'
 filename = 'model.pkl'
@@ -40,16 +42,38 @@ def signin():
     return render_template('signup.html')
 
 @main.route('/chatbot')
+@login_required
 def chat():
-    return render_template('index.html', message = messages, reponse = reponses)
+    global pseudo, json_file
+    pseudo = current_user.pseudo 
+    #ouverture JSON
+    cwd = os.getcwd() + '/chatbot/static/'
+
+    found = 0
+    for filename in os.listdir(cwd) :
+        if fnmatch.fnmatch(filename,"calendrier.json"):
+            found = 1
+            break
+
+    if found == 0 :
+        with open(cwd + "calendrier.json","w") as f :
+                json.dump([],f)
+
+    file = open(cwd + "calendrier.json", "r")
+    json_file = json.load(file)
+    file.close()
+
+    return render_template('index.html', message = messages, reponse = reponses, pseudo = pseudo )
 
 @main.route('/chatbot', methods=["GET"])
+@login_required
 def chat_back():
-    return render_template('index.html', message = messages, reponse = reponses)
+    return render_template('index.html', message = messages, reponse = reponses, pseudo = pseudo)
 
 @main.route('/chatbot', methods=["POST"])
+@login_required
 def chat_msg():
-    global messages, reponses, json_file
+    global messages, reponses
     message = request.form.get("message_input")
     date = datetime.now()
     msg_day = date.isoweekday()
@@ -78,30 +102,13 @@ def chat_msg():
         else :
             nom_doc = 'doc' + list_doc_bis[0]
 
-        #ouverture JSON
-        cwd = os.getcwd() + '/chatbot/static/'
-
-        found = 0
-        for filename in os.listdir(cwd) :
-            if fnmatch.fnmatch(filename,"calendrier.json"):
-                found = 1
-                break
-
-        if found == 0 :
-            with open(cwd + "calendrier.json","w") as f :
-                    json.dump([],f)
-
-        file = open(cwd + "calendrier.json", "r")
-        json_file = json.load(file)
-        file.close()
-
         #calcul timing
         pages = int(nb_pages)
 
         if len(json_file) == 0:
             start = time
         else:
-            if (date - datetime.strptime(day + " 19:00:00", "%m/%d/%Y %H:%M:%S")).seconds > pages:
+            if (datetime.strptime(day + " 19:00:00", "%m/%d/%Y %H:%M:%S") -  date).seconds > pages and datetime.strptime(day + " 19:00:00", "%m/%d/%Y %H:%M:%S") > date :
                 late = datetime.strptime(json_file[-1]["end"], "%m/%d/%Y %H:%M:%S")
                 if (date - late).days == 0:
                     start = max(date, late).strftime("%m/%d/%Y %H:%M:%S")
@@ -126,10 +133,11 @@ def chat_msg():
         #Update json
         object = {}
         object['titre'] = nom_doc
-        object['utilisateur'] = "toto" #a modifier
+        object['utilisateur'] = pseudo
         object['start'] = start
         object['end'] = end.strftime("%m/%d/%Y %H:%M:%S")
         object['jour'] = datetime.strptime(start, "%m/%d/%Y %H:%M:%S").isoweekday()
+        object['pages'] = pages
 
         json_file.append(object)
 
@@ -140,7 +148,7 @@ def chat_msg():
 
         #envoie message de réponse
         reponses.append("Je lance l'impresion du document " + nom_doc + " de " + nb_pages + "pages")
-    return render_template('index.html', message = messages, reponse = reponses)
+    return render_template('index.html', message = messages, reponse = reponses, pseudo = pseudo)
 
 
 @main.route('/calendrier', methods=['POST','GET'])

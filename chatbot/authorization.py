@@ -3,7 +3,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from .model_user import User
 from . import database_user as db
 from flask_login import login_user
-
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
@@ -23,7 +22,7 @@ def login_post():
         flash('Veuillez vérifier vos informations et réessayez.')
         return redirect(url_for('auth.login')) # if user doesn't exist or password is wrong, reload the page
 
-    # if the above check passes, then we know the user has the right credentials
+    login_user(user)
     return redirect(url_for('main.chat'))
 
 
